@@ -1,34 +1,38 @@
 # ARETE EDITOR — Task Board
 
-## Current mission: MISSION 001 — INITIAL PROJECT AUDIT
+## Active mission: Timeline Engine Alpha
 
-### Confirmed repository baseline
-- [x] GitHub repository is reachable through the connected account.
-- [x] Default branch identified as `main`.
-- [x] Existing `README.md` inspected.
-- [x] No application source files were found during the initial repository check; the repository currently contains only its README at the time of setup.
-- [ ] Confirm complete repository tree and commit baseline.
-- [ ] Inspect any source code supplied outside this repository, if the user intends it to be part of the project.
-- [ ] Verify Python version and virtual environment on the Windows development machine.
-- [ ] Verify installed packages and dependency versions.
-- [ ] Verify PySide6 startup and main window.
-- [ ] Verify media import and FFprobe metadata extraction.
-- [ ] Verify actual preview playback (not a placeholder).
-- [ ] Verify timeline model and frame/time representation.
-- [ ] Verify project serialization, save, and load.
-- [ ] Discover and run existing automated tests.
-- [ ] Audit error handling, logging, and Windows compatibility.
-- [ ] Record confirmed findings in `docs/INITIAL_AUDIT.md`.
-- [ ] Record target architecture and decisions in `docs/ARCHITECTURE.md`.
+### Implemented
+- [x] Repository product vision and architecture documents.
+- [x] Frame-based timeline domain engine in `arete/timeline/engine.py`.
+- [x] Split at an exact frame boundary while preserving source continuity.
+- [x] Trim start and trim end operations.
+- [x] Move clips between tracks and timeline positions.
+- [x] Track-local ripple delete.
+- [x] Undo / redo snapshots for timeline operations.
+- [x] Timeline engine regression tests.
 
-### Mission constraints
-- Do not implement new product features during the audit.
-- Do not start Phase 2.
-- Do not delete or rewrite code.
-- Do not infer that local files exist merely because an earlier plan described them.
-- Mark anything that cannot be executed or inspected as **Not verified**.
+### Verification in this build environment
+- [x] Existing starter tests: 6 passed.
+- [x] Timeline engine tests: 4 passed.
+- [x] Combined local suite: 10 passed.
+- [ ] Verify Python 3.12 on the target Windows 11 machine.
+- [ ] Install and verify PySide6 on Windows.
+- [ ] Integrate timeline engine into the interactive Qt timeline UI.
+- [ ] Verify media ingest against real user media and FFprobe on Windows.
+- [ ] Implement and verify actual decoded video playback.
+- [ ] Implement native render/export pipeline.
+- [ ] Validate GPU decode/encode paths on RTX 3050; do not assume acceleration.
 
-### After Mission 001
-- [ ] Present audit report in Persian.
-- [ ] Recommend prioritized fixes.
-- [ ] Wait for explicit user approval before beginning implementation.
+## Next vertical slice
+1. Interactive multitrack timeline with selectable clips and frame ruler.
+2. Connect split/trim/move/ripple-delete and undo/redo to UI commands.
+3. Real playback backend with seek and frame-accurate playhead.
+4. Export a real rendered file and compare output against expected timeline.
+
+## Engineering constraints
+- No fake playback, fake render, or unverified GPU claims.
+- Preserve the current project format until a versioned migration is designed.
+- Keep frame arithmetic rational/integer internally; avoid cumulative float drift.
+- Test every edit operation and its undo/redo behavior.
+- Do not claim Windows compatibility until tested on Windows 11 / Python 3.12.
